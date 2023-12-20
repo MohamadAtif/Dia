@@ -1,4 +1,7 @@
+import 'package:diamart_commerce/features/account/widgets/top_buttons.dart';
+import 'package:diamart_commerce/features/admin/widgets/category_products_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart' as charts;
 
 import '../../../common/widgets/loader.dart';
 import '../models/sales.dart';
@@ -29,30 +32,44 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     setState(() {});
   }
 
+  Sales? sales;
   @override
   Widget build(BuildContext context) {
     return earnings == null || totalSales == null
         ? const Loader()
         : Column(
             children: [
+              const SizedBox(
+                height: 30,
+              ),
+              const TopButtons(),
+              const SizedBox(
+                height: 30,
+              ),
               Text(
-                '\$$totalSales',
+                'Total sales: $totalSales EGP',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(
-                height: 250,
-                // child: CategoryProductsChart(seriesList: [
-                //   charts.Series(
-                //     id: 'Sales',
-                //     data: earnings!,
-                //     domainFn: (Sales sales, _) => sales.label,
-                //     measureFn: (Sales sales, _) => sales.earning,
-                //   ),
-                // ]),
-              )
+                height: 20,
+              ),
+              // const SizedBox(
+              //     height: 430,
+              //     child: CategoryProductsChart(
+              //       seriesList: [],
+              //     )
+              //     //  CategoryProductsChart(seriesList: [
+              //     //   charts.Series(
+              //     //     id: 'Sales',
+              //     //     data: earnings!,
+              //     //     domainFn: (Sales sales, _) => sales.label,
+              //     //     measureFn: (Sales sales, _) => sales.earning,
+              //     //   ),
+              //     // ]),
+              //     ),
             ],
           );
   }

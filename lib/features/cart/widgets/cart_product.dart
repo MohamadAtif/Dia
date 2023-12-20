@@ -1,3 +1,4 @@
+import 'package:diamart_commerce/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,7 @@ class _CartProductState extends State<CartProduct> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: Colors.grey.shade300),
+                    color: Colors.white),
                 child: Image.network(
                   product.images[0],
                   fit: BoxFit.contain,
@@ -125,23 +126,25 @@ class _CartProductState extends State<CartProduct> {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.black12,
+                    color: GlobalVariables.myTealColor,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(5),
-                  color: Colors.black12,
+                  color: GlobalVariables.myTealColor,
                 ),
                 child: Row(
                   children: [
                     InkWell(
                       onTap: () => decreaseQuantity(product),
                       child: Container(
+                        color: GlobalVariables.myTealColor,
                         width: 35,
                         height: 32,
                         alignment: Alignment.center,
                         child: const Icon(
                           Icons.remove,
                           size: 18,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -163,12 +166,14 @@ class _CartProductState extends State<CartProduct> {
                     InkWell(
                       onTap: () => increaseQuantity(product),
                       child: Container(
+                        color: GlobalVariables.myTealColor,
                         width: 35,
                         height: 32,
                         alignment: Alignment.center,
                         child: const Icon(
                           Icons.add,
                           size: 18,
+                          color: Colors.white,
                         ),
                       ),
                     ),

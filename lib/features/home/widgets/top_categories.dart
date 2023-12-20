@@ -18,7 +18,7 @@ class TopCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
+      height: 80,
       child: ListView.builder(
         itemCount: GlobalVariables.categoryImages.length,
         scrollDirection: Axis.horizontal,
@@ -34,12 +34,12 @@ class TopCategories extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
                       GlobalVariables.categoryImages[index]['image']!,
-                      fit: BoxFit.cover,
-                      height: 40,
-                      width: 40,
+                      fit: BoxFit.fitHeight,
+                      height: 60,
+                      width: 50,
                     ),
                   ),
                 ),
@@ -47,7 +47,8 @@ class TopCategories extends StatelessWidget {
                   GlobalVariables.categoryImages[index]['title']!,
                   style: const TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Kanit',
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],

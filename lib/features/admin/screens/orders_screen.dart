@@ -1,4 +1,6 @@
-import 'package:diamart_commerce/features/order_details/screens/order_details.dart';
+import 'package:diamart_commerce/common/widgets/loader_gridview.dart';
+import 'package:diamart_commerce/features/account/widgets/image_product.dart';
+import 'package:diamart_commerce/features/orders/screens/order_details.dart';
 import 'package:flutter/material.dart';
 import '../../../common/widgets/loader.dart';
 import '../../../models/order.dart';
@@ -30,7 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     return orders == null
-        ? const Loader()
+        ? const LoaderGridView()
         : GridView.builder(
             itemCount: orders!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -46,11 +48,24 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 order: orderData,
                               )));
                 },
-                child: SizedBox(
-                  height: 140,
-                  child: SingleProduct(
-                    image: orderData.products[0].images[0],
-                  ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 140,
+                      child: ImageProduct(
+                        image: orderData.products[0].images[0],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        orderData.products[0].name,
+                        style: const TextStyle(fontFamily: 'Kanit'),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
                 ),
               );
             },

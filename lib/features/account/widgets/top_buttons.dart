@@ -1,3 +1,5 @@
+import 'package:diamart_commerce/constants/global_variables.dart';
+import 'package:diamart_commerce/constants/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../services/account_services.dart';
@@ -13,28 +15,26 @@ class TopButtons extends StatelessWidget {
         Row(
           children: [
             AccountButton(
-              text: 'Your Orders',
+              text: 'Your Favorites',
               onTap: () {},
             ),
-            AccountButton(
-              text: 'Turn Seller',
-              onTap: () {},
-            ),
+            AccountButton(text: 'Log Out', onTap: () => onBackDialog(context)),
+            // AccountButton(
+            //   text: 'Turn Seller',
+            //   onTap: () {},
+            // ),
           ],
         ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            AccountButton(
-              text: 'Log Out',
-              onTap: () => AccountServices().logOut(context),
-            ),
-            AccountButton(
-              text: 'Your Wish List',
-              onTap: () {},
-            ),
-          ],
-        ),
+        // const SizedBox(height: 10),
+        // Row(
+        //   children: [
+
+        //     AccountButton(
+        //       text: 'Your Wish List',
+        //       onTap: () {},
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }

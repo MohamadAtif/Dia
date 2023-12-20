@@ -23,7 +23,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
   final AdminServices adminServices = AdminServices();
-
+  bool isLoading = false;
   String category = 'Mobiles';
   List<File> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
@@ -145,28 +145,28 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                         ),
                       ),
-                const SizedBox(height: 18),
+                const SizedBox(height: 12),
                 CustomTextField(
                   controller: productNameController,
                   hintText: 'Product Name',
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
                 CustomTextField(
                   controller: descriptionController,
                   hintText: 'Description',
                   maxLines: 7,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
                 CustomTextField(
                   controller: priceController,
                   hintText: 'Price',
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
                 CustomTextField(
                   controller: quantityController,
                   hintText: 'Quantity',
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 7),
                 SizedBox(
                   width: double.infinity,
                   child: DropdownButton(
@@ -188,12 +188,63 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     },
                   ),
                 ),
-                const SizedBox(height: 10),
-                CustomButton(
-                  text: 'Sell',
-                  onTap: sellProduct,
-                  color: Colors.deepPurple,
+                const SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    sellProduct();
+                    await Future.delayed(const Duration(seconds: 1));
+
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 50),
+                    backgroundColor: GlobalVariables.myTealColor,
+                  ),
+                  child: isLoading
+                      ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : const Text(
+                          'Sell',
+                          style: TextStyle(
+                            fontFamily: 'Kanit',
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
+                isLoading
+                    ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : const Text(
+                        'Add to Cart',
+                        style: TextStyle(
+                          fontFamily: 'Kanit',
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                // CustomButton(
+                //   text: 'Sell',
+                //   onTap: () async {
+                //     setState(() {
+                //       isLoading = true;
+                //     });
+                //     sellProduct();
+                //     await Future.delayed(const Duration(seconds: 2));
+
+                //     setState(() {
+                //       isLoading = false;
+                //     });
+                //   },
+                //   color: Colors.deepPurple,
+                // ),
               ],
             ),
           ),

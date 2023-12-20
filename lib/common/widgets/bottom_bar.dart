@@ -1,4 +1,6 @@
+import 'package:diamart_commerce/features/orders/screens/orders_view_user.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import '../../constants/global_variables.dart';
 import '../../features/account/screens/account_screen.dart';
@@ -8,7 +10,6 @@ import '../../providers/user_provider.dart';
 import 'package:badges/badges.dart' as badges;
 
 class BottomBar extends StatefulWidget {
-  static const String routeName = '/actual-home';
   const BottomBar({Key? key}) : super(key: key);
 
   @override
@@ -22,6 +23,7 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
+    const OrdersViewUser(),
     const AccountScreen(),
     const CartScreen(),
   ];
@@ -37,81 +39,140 @@ class _BottomBarState extends State<BottomBar> {
     final userCartLen = context.watch<UserProvider>().user.cart.length;
 
     return Scaffold(
-      body: pages[_page],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _page,
-        selectedItemColor: GlobalVariables.selectedNavBarColor,
-        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
-        backgroundColor: GlobalVariables.backgroundColor,
-        iconSize: 28,
-        onTap: updatePage,
-        items: [
-          // HOME
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 0
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
-                  ),
-                ),
-              ),
-              child: const Icon(
-                Icons.home_outlined,
-              ),
-            ),
-            label: '',
+        body: pages[_page],
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            // color: Colors.white,
           ),
-          // ACCOUNT
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 1
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: GNav(
+                selectedIndex: _page,
+                onTabChange: updatePage,
+                color: Colors.teal,
+                // gap: 1,
+                // backgroundColor: Colors.white,
+                activeColor: Colors.grey.shade300,
+                tabBackgroundColor: GlobalVariables.myTealColor,
+                padding: const EdgeInsets.all(16),
+                tabs: [
+                  const GButton(
+                    icon: Icons.home,
+                    text: '   Home',
                   ),
-                ),
-              ),
-              child: const Icon(
-                Icons.person_outline_outlined,
-              ),
-            ),
-            label: '',
-          ),
-          // CART
-          BottomNavigationBarItem(
-            icon: Container(
-              width: bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: _page == 2
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: bottomBarBorderWidth,
+                  const GButton(
+                    icon: Icons.event_note_outlined,
+                    text: '   Orders',
                   ),
-                ),
-              ),
-              child: badges.Badge(
-                badgeContent: Text(userCartLen.toString()),
-                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.white),
-                child: const Icon(
-                  Icons.shopping_cart_outlined,
-                ),
-              ),
-            ),
-            label: '',
+                  const GButton(
+                    icon: Icons.person_2,
+                    text: ' Profile',
+                  ),
+                  GButton(
+                    leading: badges.Badge(
+                      badgeContent: Text(
+                        userCartLen.toString(),
+                        style: TextStyle(
+                          color: _page == 3
+                              ? Colors.grey.shade100
+                              : GlobalVariables.myTealColor,
+                        ),
+                      ),
+                      badgeStyle: const badges.BadgeStyle(
+                          padding: EdgeInsets.all(1),
+                          badgeColor: Colors.transparent),
+                      child: _page == 3
+                          ? Icon(
+                              Icons.shopping_cart_sharp,
+                              color: Colors.grey.shade100,
+                            )
+                          : const Icon(
+                              Icons.shopping_cart_rounded,
+                              color: GlobalVariables.myTealColor,
+                            ),
+                    ),
+                    icon: Icons.shopping_cart_rounded,
+                    text: '    Cart',
+                  ),
+                ]),
           ),
-        ],
-      ),
-    );
+        )
+
+        //  BottomNavigationBar(
+        //   currentIndex: _page,
+        //   selectedItemColor: GlobalVariables.selectedNavBarColor,
+        //   unselectedItemColor: GlobalVariables.unselectedNavBarColor,
+        //   backgroundColor: GlobalVariables.backgroundColor,
+        //   iconSize: 28,
+        //   onTap: updatePage,
+        //   items: [
+        //     // HOME
+        //     BottomNavigationBarItem(
+        //       icon: Container(
+        //         width: bottomBarWidth,
+        //         decoration: BoxDecoration(
+        //           border: Border(
+        //             top: BorderSide(
+        //               color: _page == 0
+        //                   ? GlobalVariables.selectedNavBarColor
+        //                   : GlobalVariables.backgroundColor,
+        //               width: bottomBarBorderWidth,
+        //             ),
+        //           ),
+        //         ),
+        //         child: const Icon(
+        //           Icons.home,
+        //         ),
+        //       ),
+        //       label: '',
+        //     ),
+        //     // ACCOUNT
+        //     BottomNavigationBarItem(
+        //       icon: Container(
+        //         width: bottomBarWidth,
+        //         decoration: BoxDecoration(
+        //           border: Border(
+        //             top: BorderSide(
+        //               color: _page == 1
+        //                   ? GlobalVariables.selectedNavBarColor
+        //                   : GlobalVariables.backgroundColor,
+        //               width: bottomBarBorderWidth,
+        //             ),
+        //           ),
+        //         ),
+        //         child: const Icon(
+        //           Icons.person_2,
+        //         ),
+        //       ),
+        //       label: '',
+        //     ),
+        //     // CART
+        //     BottomNavigationBarItem(
+        //       icon: Container(
+        //         width: bottomBarWidth,
+        //         decoration: BoxDecoration(
+        //           border: Border(
+        //             top: BorderSide(
+        //               color: _page == 2
+        //                   ? GlobalVariables.selectedNavBarColor
+        //                   : GlobalVariables.backgroundColor,
+        //               width: bottomBarBorderWidth,
+        //             ),
+        //           ),
+        //         ),
+        // child: badges.Badge(
+        //   badgeContent: Text(userCartLen.toString()),
+        //   badgeStyle: const badges.BadgeStyle(badgeColor: Colors.white),
+        //           child: const Icon(
+        //             Icons.shopping_cart,
+        //           ),
+        //         ),
+        //       ),
+        // label: '',
+        //     ),
+        //   ],
+        // ),
+        );
   }
 }

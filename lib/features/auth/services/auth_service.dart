@@ -19,6 +19,7 @@ class AuthService {
     required String email,
     required String password,
     required String name,
+    required String phone,
   }) async {
     try {
       User user = User(
@@ -26,6 +27,7 @@ class AuthService {
         name: name,
         password: password,
         email: email,
+        phone: phone,
         address: '',
         type: '',
         token: '',
@@ -33,7 +35,7 @@ class AuthService {
       );
 
       http.Response res = await http.post(
-        Uri.parse('http://10.0.2.2:3000/api/signup'),
+        Uri.parse('$uri/api/signup'),
         body: user.toJson(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -63,7 +65,7 @@ class AuthService {
   }) async {
     try {
       http.Response res = await http.post(
-        Uri.parse('http://10.0.2.2:3000/api/signin'),
+        Uri.parse('$uri/api/signin'),
         body: jsonEncode({
           'email': email,
           'password': password,

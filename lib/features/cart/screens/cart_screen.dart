@@ -1,4 +1,8 @@
+import 'package:diamart_commerce/common/widgets/bottom_bar.dart';
+import 'package:diamart_commerce/constants/utils.dart';
+import 'package:diamart_commerce/common/widgets/showdialog.dart';
 import 'package:diamart_commerce/features/address/screens/address_screen.dart';
+import 'package:diamart_commerce/features/home/screens/home_screen.dart';
 import 'package:diamart_commerce/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +45,7 @@ class _CartScreenState extends State<CartScreen> {
     user.cart
         .map((e) => sum += e['quantity'] * e['product']['price'] as int)
         .toList();
+    print(sum);
 
     return Scaffold(
       appBar: PreferredSize(
@@ -66,13 +71,13 @@ class _CartScreenState extends State<CartScreen> {
                       decoration: InputDecoration(
                         prefixIcon: InkWell(
                           onTap: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.only(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
                               left: 6,
                             ),
                             child: Icon(
                               Icons.search,
-                              color: Colors.black,
+                              color: Colors.grey.shade800,
                               size: 23,
                             ),
                           ),
@@ -96,7 +101,8 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         hintText: 'Search Diamart',
-                        hintStyle: const TextStyle(
+                        hintStyle: TextStyle(
+                          color: Colors.grey.shade400,
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
                         ),
@@ -109,28 +115,39 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const AddressBox(),
-            const CartSubtotal(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomButton(
-                text: 'Proceed to Buy (${user.cart.length} items)',
-                onTap: () => navigateToAddress(sum),
-                color: Colors.yellow[600],
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(children: [
+              const AddressBox(),
+              const SizedBox(height: 5),
+              const CartSubtotal(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomButton(
+                  text: 'CHECKOUT (${user.cart.length} items)',
+                  onTap: () => user.cart.isEmpty
+                      ? showSnackBar(context, 'Add Items First!')
+                      : navigateToAddress(sum),
+                  color: GlobalVariables.myTealColor,
+                ),
               ),
-            ),
-            const SizedBox(height: 15),
-            Container(
-              color: Colors.black12.withOpacity(0.08),
-              height: 1,
-            ),
-            const SizedBox(height: 5),
-            user.cart.isEmpty
+              const SizedBox(height: 15),
+              Column(
+                children: [
+                  Container(
+                    color: Colors.black12.withOpacity(0.08),
+                    height: 1,
+                  ),
+                ],
+              ),
+            ]),
+          ),
+          SliverFillRemaining(
+            child: user.cart.isEmpty
                 ? Column(
                     children: [
+                      const SizedBox(height: 5),
                       const SizedBox(
                         height: 80,
                       ),
@@ -145,7 +162,23 @@ class _CartScreenState extends State<CartScreen> {
                             fontSize: 18,
                             fontFamily: 'Kanit',
                             color: Colors.grey.shade400),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const BottomBar()),
+                                (route) => false);
+                          },
+                          child: const Text('Go Shopping',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Kanit',
+                                  color: GlobalVariables.myTealColor)))
                     ],
                   )
                 : ListView.builder(
@@ -157,8 +190,8 @@ class _CartScreenState extends State<CartScreen> {
                       );
                     },
                   ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

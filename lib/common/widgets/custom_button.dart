@@ -1,3 +1,4 @@
+import 'package:diamart_commerce/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -21,10 +22,10 @@ class CustomButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Kanit',
           fontSize: 15,
-          color: color == null ? Colors.white : Colors.black,
+          color: Colors.white,
         ),
       ),
     );

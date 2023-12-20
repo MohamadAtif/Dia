@@ -8,7 +8,7 @@ const auth = require('../middlewares/auth');
 
  authRouter.post('/api/signup',async (req,res)=>{
    try {
-      const{name,email,password}=req.body;
+      const{name,email,password,phone}=req.body;
       const exitingUser = await User.findOne({email}); 
     if(exitingUser){
      return res.status(400).json({msg:'User Already Exists!'})
@@ -17,7 +17,8 @@ const auth = require('../middlewares/auth');
     let user=new User({
        email ,
        password:hashedPassword,
-       name
+       name,
+       phone
     })
     user=await user.save();
     res.json({user});

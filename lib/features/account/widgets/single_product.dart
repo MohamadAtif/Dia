@@ -1,35 +1,45 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SingleProduct extends StatelessWidget {
   final String image;
+
+  final String? name;
+  final double? price;
   const SingleProduct({
     Key? key,
     required this.image,
+    this.name,
+    this.price,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black12,
-            width: 1.5,
-          ),
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.white,
+    return
+        // height: 220,
+
+        Column(
+      children: [
+        CachedNetworkImage(
+          height: 130,
+          width: 120,
+          imageUrl: image,
+          // s
         ),
-        child: Container(
-          width: 180,
-          padding: const EdgeInsets.all(10),
-          child: Image.network(
-            image,
-            fit: BoxFit.fitHeight,
-            width: 180,
-          ),
+        Text(
+          name.toString(),
+          style: const TextStyle(fontFamily: 'Kanit', fontSize: 16),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
         ),
-      ),
+        Text(
+          "${price.toString()} EGP",
+          style: const TextStyle(
+              color: Colors.red, fontFamily: 'Kanit', fontSize: 14),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        ),
+      ],
     );
   }
 }

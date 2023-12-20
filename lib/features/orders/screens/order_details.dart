@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +62,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         child: AppBar(
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient,
+              gradient: GlobalVariables.appBarPrivate,
             ),
           ),
           title: Row(
@@ -79,13 +80,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       decoration: InputDecoration(
                         prefixIcon: InkWell(
                           onTap: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.only(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
                               left: 6,
                             ),
                             child: Icon(
                               Icons.search,
-                              color: Colors.black,
+                              color: Colors.teal.shade400,
                               size: 23,
                             ),
                           ),
@@ -109,20 +110,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           ),
                         ),
                         hintText: 'Search Diamart',
-                        hintStyle: const TextStyle(
+                        hintStyle: TextStyle(
                           fontWeight: FontWeight.w500,
+                          color: Colors.teal.shade400,
                           fontSize: 17,
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                color: Colors.transparent,
-                height: 42,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Icon(Icons.mic, color: Colors.black, size: 25),
               ),
             ],
           ),
@@ -135,92 +131,144 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'View order details',
+                '  View Order Details',
                 style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Kanit'),
+              ),
+              const SizedBox(
+                height: 5,
               ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.grey.shade100,
                   border: Border.all(
-                    color: Colors.black12,
+                    color: Colors.white,
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Order Date:    ${DateFormat().format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          widget.order.orderedAt),
-                    )}'),
-                    Text('Order ID:          ${widget.order.id}'),
-                    Text('Order Total:      \$${widget.order.totalPrice}'),
+                    Text(
+                      'ORDER DATE:    ${DateFormat().format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            widget.order.orderedAt),
+                      )}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontFamily: 'Kanit'),
+                    ),
+                    Text(
+                      'ORDER ID:          ${widget.order.id}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontFamily: 'Kanit'),
+                    ),
+                    Text(
+                      'SHIP-ADDRESS:  ${widget.order.address}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Kanit'),
+                    ),
+                    Text(
+                      'Phone Number :  ${user.phone}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Kanit',
+                          color: Colors.black),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      'TOTAL:     ${widget.order.totalPrice}  EGP',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Kanit'),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 10),
               const Text(
-                'Purchase Details',
+                '  PURCHASE DETAILS',
                 style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Kanit'),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
+              const SizedBox(height: 5),
+              GestureDetector(
+                onTap: () {
+                  // Text(user.address.toString());
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Colors.black12,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      for (int i = 0; i < widget.order.products.length; i++)
+                        Row(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: widget.order.products[i].images[0],
+                              height: 120,
+                              width: 120,
+                            ),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.order.products[i].name,
+                                    style: const TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Kanit'),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    'Qty: ${widget.order.quantity[i]}',
+                                    style: const TextStyle(fontFamily: 'Kanit'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
                   ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    for (int i = 0; i < widget.order.products.length; i++)
-                      Row(
-                        children: [
-                          Image.network(
-                            widget.order.products[i].images[0],
-                            height: 120,
-                            width: 120,
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.order.products[i].name,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'Qty: ${widget.order.quantity[i]}',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
               ),
               const SizedBox(height: 10),
               const Text(
-                'Tracking',
+                '  FOLLOW YOUR ORDER',
                 style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Kanit'),
               ),
+              const SizedBox(height: 10),
               Container(
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
                   border: Border.all(
                     color: Colors.black12,
                   ),
@@ -230,6 +278,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   controlsBuilder: (context, details) {
                     if (user.type == 'admin') {
                       return CustomButton(
+                        color: Colors.yellow,
                         text: 'Done',
                         onTap: () => changeOrderStatus(details.currentStep),
                       );
@@ -238,9 +287,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   },
                   steps: [
                     Step(
-                      title: const Text('Pending'),
+                      title: const Text(
+                        'Pending',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Kanit'),
+                      ),
                       content: const Text(
                         'Your order is yet to be delivered',
+                        style: TextStyle(fontFamily: 'Kanit'),
                       ),
                       isActive: currentStep > 0,
                       state: currentStep > 0
@@ -248,9 +304,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           : StepState.indexed,
                     ),
                     Step(
-                      title: const Text('Completed'),
+                      title: const Text(
+                        'Completed',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Kanit'),
+                      ),
                       content: const Text(
                         'Your order has been delivered, you are yet to sign.',
+                        style: TextStyle(fontFamily: 'Kanit'),
                       ),
                       isActive: currentStep > 1,
                       state: currentStep > 1
@@ -258,9 +321,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           : StepState.indexed,
                     ),
                     Step(
-                      title: const Text('Received'),
+                      title: const Text(
+                        'Received',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Kanit'),
+                      ),
                       content: const Text(
                         'Your order has been delivered and signed by you.',
+                        style: TextStyle(fontFamily: 'Kanit'),
                       ),
                       isActive: currentStep > 2,
                       state: currentStep > 2
@@ -268,9 +338,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           : StepState.indexed,
                     ),
                     Step(
-                      title: const Text('Delivered'),
+                      title: const Text(
+                        'Delivered',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Kanit'),
+                      ),
                       content: const Text(
                         'Your order has been delivered and signed by you!',
+                        style: TextStyle(fontFamily: 'Kanit'),
                       ),
                       isActive: currentStep >= 3,
                       state: currentStep >= 3

@@ -37,7 +37,7 @@ class _AdminScreenState extends State<AdminScreen> {
         child: AppBar(
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient,
+              gradient: GlobalVariables.appBarAdmin,
             ),
           ),
           title: Row(
@@ -48,12 +48,14 @@ class _AdminScreenState extends State<AdminScreen> {
                   child: const Text(
                     'DIAMART',
                     style: TextStyle(
-                        fontFamily: 'Kanit', fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontFamily: 'Kanit',
+                        fontWeight: FontWeight.bold),
                   )),
               const Text(
-                'Admin',
+                'ADMIN',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontFamily: 'Kanit',
                   fontWeight: FontWeight.bold,
                 ),

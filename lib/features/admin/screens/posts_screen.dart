@@ -1,3 +1,5 @@
+import 'package:diamart_commerce/common/widgets/loader_gridview.dart';
+import 'package:diamart_commerce/features/account/widgets/image_product.dart';
 import 'package:diamart_commerce/features/admin/screens/add_product_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +49,7 @@ class _PostsScreenState extends State<PostsScreen> {
   @override
   Widget build(BuildContext context) {
     return products == null
-        ? const Loader()
+        ? const LoaderGridView()
         : Scaffold(
             body: GridView.builder(
               itemCount: products!.length,
@@ -59,7 +61,7 @@ class _PostsScreenState extends State<PostsScreen> {
                   children: [
                     SizedBox(
                       height: 140,
-                      child: SingleProduct(
+                      child: ImageProduct(
                         image: productData.images[0],
                       ),
                     ),

@@ -1,10 +1,14 @@
+import 'package:diamart_commerce/features/account/widgets/single_product.dart';
+import 'package:diamart_commerce/features/home/widgets/collection_category.dart';
+import 'package:diamart_commerce/features/home/widgets/recently_added_list.dart';
+import 'package:diamart_commerce/models/product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/global_variables.dart';
 import '../../search/screens/search_screen.dart';
 import '../widgets/address_box.dart';
 import '../widgets/carousel_image.dart';
-import '../widgets/deal_of_day.dart';
+import '../widgets/top_rated.dart';
 import '../widgets/top_categories.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -80,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         hintText: 'Search Diamart',
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: Colors.teal.shade200,
+                          color: Colors.grey.shade400,
                           fontSize: 17,
                         ),
                       ),
@@ -106,8 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
             TopCategories(),
             SizedBox(height: 10),
             CarouselImage(),
+            AllProductsListView()
+            // CollectionCategory()
             // BestSellerProduct(),
-            DealOfDay(),
+            ,
+            TopRated(),
           ],
         ),
       ),

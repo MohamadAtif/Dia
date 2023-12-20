@@ -113,32 +113,60 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: products == null
           ? const Loader()
-          : Column(
-              children: [
-                const AddressBox(),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: products!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProductDetailScreen(
-                                        product: products![index],
-                                      )));
-                        },
-                        child: SearchedProduct(
-                          product: products![index],
-                        ),
-                      );
-                    },
+          : products!.isEmpty
+              ? Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 80,
+                      ),
+                      Icon(Icons.no_cell,
+                          color: Colors.grey.shade400, size: 60),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        " Sorry, we could'nt find any results for #${widget.searchQuery.toString()} \n           Try Adjusting Your Search",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Kanit',
+                            color: Colors.grey.shade400),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                    ],
                   ),
+                )
+              : Column(
+                  children: [
+                    const AddressBox(),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: products!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductDetailScreen(
+                                            product: products![index],
+                                          )));
+                            },
+                            child: products![index] == ''
+                                ? const Text('dfjjjjjjjjjj')
+                                : SearchedProduct(
+                                    product: products![index],
+                                  ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 }

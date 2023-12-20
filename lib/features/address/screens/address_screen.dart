@@ -1,5 +1,8 @@
-import 'package:diamart_commerce/features/payment/widgets/payment_method_items.dart';
+import 'package:diamart_commerce/features/orders/widgets/orders.dart';
+import 'package:diamart_commerce/features/address/services/address_services.dart';
+
 import 'package:flutter/material.dart';
+import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/widgets/custom_button.dart';
@@ -22,32 +25,32 @@ class AddressScreen extends StatefulWidget {
 class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController flatBuildingController = TextEditingController();
   final TextEditingController areaController = TextEditingController();
-  final TextEditingController pincodeController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final _addressFormKey = GlobalKey<FormState>();
 
   String addressToBeUsed = "";
-  // List<PaymentItem> paymentItems = [];
-  // final AddressServices addressServices = AddressServices();
+  List<PaymentItem> paymentItems = [];
+  final AddressServices addressServices = AddressServices();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   paymentItems.add(
-  //     PaymentItem(
-  //       amount: widget.totalAmount,
-  //       label: 'Total Amount',
-  //       status: PaymentItemStatus.final_price,
-  //     ),
-  //   );
-  // }
+  @override
+  void initState() {
+    super.initState();
+    paymentItems.add(
+      PaymentItem(
+        amount: widget.totalAmount,
+        label: 'Total Amount',
+        status: PaymentItemStatus.final_price,
+      ),
+    );
+  }
 
   @override
   void dispose() {
     super.dispose();
     flatBuildingController.dispose();
     areaController.dispose();
-    pincodeController.dispose();
+    phoneController.dispose();
     cityController.dispose();
   }
 
@@ -81,25 +84,50 @@ class _AddressScreenState extends State<AddressScreen> {
   //   );
   // }
 
-  void payPressed(String addressFromProvider) {
+  void payPressed(String addressFromProvider) async {
     addressToBeUsed = "";
 
     bool isForm = flatBuildingController.text.isNotEmpty ||
         areaController.text.isNotEmpty ||
-        pincodeController.text.isNotEmpty ||
+        phoneController.text.isNotEmpty ||
         cityController.text.isNotEmpty;
-
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
     if (isForm) {
       if (_addressFormKey.currentState!.validate()) {
         addressToBeUsed =
-            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
+            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text}';
+        if (Provider.of<UserProvider>(context, listen: false)
+            .user
+            .address
+            .isEmpty) {
+          addressServices.saveUserAddress(
+              context: context, address: addressToBeUsed);
+        }
+
+        addressServices.placeOrder(
+          context: context,
+          address: addressToBeUsed,
+          totalSum: double.parse(widget.totalAmount),
+        );
       } else {
-        throw Exception('Please enter all the values!');
+        showSnackBar(context, 'Please enter all the values!');
       }
     } else if (addressFromProvider.isNotEmpty) {
       addressToBeUsed = addressFromProvider;
+
+      addressServices.placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: double.parse(widget.totalAmount),
+      );
     } else {
-      showSnackBar(context, 'ERROR');
+      showSnackBar(context, 'Check Fields!');
     }
   }
 
@@ -129,6 +157,8 @@ class _AddressScreenState extends State<AddressScreen> {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
+                        color: GlobalVariables.backgroundColor,
+                        borderRadius: BorderRadius.circular(25),
                         border: Border.all(
                           color: Colors.black12,
                         ),
@@ -136,10 +166,11 @@ class _AddressScreenState extends State<AddressScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          address,
+                          '  $address',
                           style: const TextStyle(
-                            fontSize: 18,
-                          ),
+                              fontSize: 18,
+                              fontFamily: 'Kanit',
+                              color: Colors.teal),
                         ),
                       ),
                     ),
@@ -147,6 +178,7 @@ class _AddressScreenState extends State<AddressScreen> {
                     const Text(
                       'OR',
                       style: TextStyle(
+                        fontFamily: 'Kanit',
                         fontSize: 18,
                       ),
                     ),
@@ -168,18 +200,26 @@ class _AddressScreenState extends State<AddressScreen> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                      controller: pincodeController,
-                      hintText: 'Pincode',
+                      controller: cityController,
+                      hintText: 'Town/City',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                      controller: cityController,
-                      hintText: 'Town/City',
+                      controller: phoneController,
+                      hintText: 'Phone Number',
                     ),
                     const SizedBox(height: 10),
                   ],
                 ),
               ),
+              CustomButton(
+                color: GlobalVariables.myTealColor,
+                onTap: () {
+                  payPressed(address);
+                },
+                text: 'Make Order',
+              ),
+
               // ApplePayButton(
               //   width: double.infinity,
               //   style: ApplePayButtonStyle.whiteOutline,
@@ -192,26 +232,28 @@ class _AddressScreenState extends State<AddressScreen> {
               //   height: 50,
               //   onPressed: () => payPressed(address),
               // ),
-              const SizedBox(height: 10),
-              CustomButton(
-                color: Colors.yellow,
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return const ShowPaymentBottomSheet();
-                      });
-                },
-                text: 'PAY',
-              ),
+              // const SizedBox(height: 10),
+              // CustomButton(
+              //   color: Colors.yellow,
+              //   onTap: () {
+              //     showModalBottomSheet(
+              //         context: context,
+              //         builder: (context) {
+              //           return const ShowPaymentBottomSheet();
+              //         });
+              //   },
+              //   text: 'PAY',
+              // ),
               // GooglePayButton(
+              //   width: double.infinity,
               //   onPressed: () => payPressed(address),
-              //   paymentConfiguration:
-              //       PaymentConfiguration.fromJsonString('gpay.json'),
-
+              //   // paymentConfiguration:
+              //   //     PaymentConfiguration.fromJsonString('gpay.json'),
+              //   paymentConfigurationAsset: 'gpay.json',
               //   onPaymentResult: onGooglePayResult,
               //   paymentItems: paymentItems,
               //   height: 50,
+
               //   // style: GooglePayButtonStyle.black,
               //   type: GooglePayButtonType.buy,
               //   margin: const EdgeInsets.only(top: 15),
@@ -227,46 +269,39 @@ class _AddressScreenState extends State<AddressScreen> {
   }
 }
 
-class ShowPaymentBottomSheet extends StatelessWidget {
-  const ShowPaymentBottomSheet({super.key});
+// class ShowPaymentBottomSheet extends StatelessWidget {
+//   const ShowPaymentBottomSheet({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        const Row(
-          children: [
-            SizedBox(
-              width: 80,
-            ),
-            PaymentMethodItem(
-                isActive: true, image: 'assets/images/SVGRepo_iconCarrier.png'),
-            SizedBox(
-              width: 30,
-            ),
-            PaymentMethodItem(
-                isActive: false, image: 'assets/images/Group.png'),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        CustomButton(color: Colors.yellow, text: 'Continue', onTap: () {}),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
-    );
-  }
-}
-
-
-
-
-  
-//   Widget showPaymentBottomSheet() {}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         const SizedBox(
+//           height: 10,
+//         ),
+//         const Row(
+//           children: [
+//             SizedBox(
+//               width: 80,
+//             ),
+//             PaymentMethodItem(
+//                 isActive: true, image: 'assets/images/SVGRepo_iconCarrier.png'),
+//             SizedBox(
+//               width: 30,
+//             ),
+//             PaymentMethodItem(
+//                 isActive: false, image: 'assets/images/Group.png'),
+//           ],
+//         ),
+//         const SizedBox(
+//           height: 10,
+//         ),
+//         CustomButton(color: Colors.yellow, text: 'Continue', onTap: () {}),
+//         const SizedBox(
+//           height: 10,
+//         ),
+//       ],
+//     );
+//   }
 // }

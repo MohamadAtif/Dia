@@ -13,15 +13,15 @@ class CarouselImage extends StatelessWidget {
           return Builder(
             builder: (BuildContext context) => Image.network(
               i,
-              fit: BoxFit.cover,
-              height: 200,
+              fit: BoxFit.fitWidth,
+              height: 120,
             ),
           );
         },
       ).toList(),
       options: CarouselOptions(
         viewportFraction: 1,
-        height: 200,
+        height: 180,
       ),
     );
   }
