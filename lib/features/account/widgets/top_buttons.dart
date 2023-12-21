@@ -14,10 +14,6 @@ class TopButtons extends StatelessWidget {
       children: [
         Row(
           children: [
-            AccountButton(
-              text: 'Your Favorites',
-              onTap: () {},
-            ),
             AccountButton(text: 'Log Out', onTap: () => onBackDialog(context)),
             // AccountButton(
             //   text: 'Turn Seller',

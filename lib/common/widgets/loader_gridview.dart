@@ -10,7 +10,7 @@ class LoaderGridView extends StatelessWidget {
     return SizedBox(
       // height: 160,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 3),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 3),
         child: GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
