@@ -6,7 +6,7 @@ const { Product } = require("../models/product");
 
 productRouter.get("/api/get-all-products", auth, async (req, res) => {
   try {
-    const products = await Product.find({});
+    const products = await Product.find({}).sort({ratings:-1,dateCreated:-1});
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });

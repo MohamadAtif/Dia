@@ -1,6 +1,4 @@
-import 'package:diamart_commerce/features/orders/widgets/orders.dart';
 import 'package:diamart_commerce/features/address/services/address_services.dart';
-
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
@@ -114,6 +112,7 @@ class _AddressScreenState extends State<AddressScreen> {
           context: context,
           address: addressToBeUsed,
           totalSum: double.parse(widget.totalAmount),
+          phone: phoneController.text,
         );
       } else {
         showSnackBar(context, 'Please enter all the values!');
@@ -125,6 +124,7 @@ class _AddressScreenState extends State<AddressScreen> {
         context: context,
         address: addressToBeUsed,
         totalSum: double.parse(widget.totalAmount),
+        phone: 'No number was Given',
       );
     } else {
       showSnackBar(context, 'Check Fields!');

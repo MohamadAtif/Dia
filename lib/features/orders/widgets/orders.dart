@@ -1,9 +1,8 @@
-import 'package:diamart_commerce/common/widgets/bottom_bar.dart';
 import 'package:diamart_commerce/common/widgets/loader_gridview.dart';
 import 'package:diamart_commerce/features/account/widgets/image_product.dart';
 import 'package:diamart_commerce/features/orders/screens/order_details.dart';
+import 'package:diamart_commerce/features/orders/widgets/empty_order_page.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/global_variables.dart';
 import '../../../models/order.dart';
 import '../../account/services/account_services.dart';
 
@@ -34,41 +33,7 @@ class _OrdersState extends State<Orders> {
     return orders == null
         ? const LoaderGridView()
         : orders!.isEmpty
-            ? Column(
-                children: [
-                  const SizedBox(
-                    height: 80,
-                  ),
-                  Icon(Icons.speaker_notes_off_rounded,
-                      color: Colors.grey.shade400, size: 60),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    "You don't have any Orders Yet",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Kanit',
-                        color: Colors.grey.shade400),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const BottomBar()),
-                            (route) => false);
-                      },
-                      child: const Text('Keep Shopping',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Kanit',
-                              color: GlobalVariables.myTealColor)))
-                ],
-              )
+            ? const EmptyOrderPage()
             : Container(
                 // height: 170,
                 padding: const EdgeInsets.only(

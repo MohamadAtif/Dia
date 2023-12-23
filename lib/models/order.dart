@@ -10,7 +10,9 @@ class Order {
   final int orderedAt;
   final int status;
   final double totalPrice;
+  final String phone;
   Order({
+    required this.phone,
     required this.id,
     required this.products,
     required this.quantity,
@@ -31,6 +33,7 @@ class Order {
       'orderedAt': orderedAt,
       'status': status,
       'totalPrice': totalPrice,
+      'phone': phone
     };
   }
 
@@ -45,6 +48,7 @@ class Order {
         ),
       ),
       address: map['address'] ?? '',
+      phone: map['phone'] ?? '',
       userId: map['userId'] ?? '',
       orderedAt: map['orderedAt']?.toInt() ?? 0,
       status: map['status']?.toInt() ?? 0,

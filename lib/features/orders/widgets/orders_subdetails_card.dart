@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diamart_commerce/features/orders/screens/order_details.dart';
 import 'package:diamart_commerce/models/order.dart';
-import 'package:diamart_commerce/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class OrderSubDetailsCard extends StatelessWidget {
   const OrderSubDetailsCard({super.key, required this.order});
@@ -56,6 +54,15 @@ class OrderSubDetailsCard extends StatelessWidget {
                     ),
                     Text(
                       'SHPPING ADDRESS :  ${order.address}',
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: 'Kanit',
+                          color: Colors.grey.shade700),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      'Phone-order :  ${order.phone.toString()}',
                       style: TextStyle(
                           fontSize: 13,
                           fontFamily: 'Kanit',
@@ -136,10 +143,6 @@ class OrderSubDetailsCard extends StatelessWidget {
               ],
             ),
           ),
-          // Divider(
-          //   thickness: 3,
-          //   color: Colors.grey.shade400,
-          // )
         ],
       ),
     );

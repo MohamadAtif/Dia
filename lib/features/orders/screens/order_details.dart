@@ -179,12 +179,21 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           fontFamily: 'Kanit'),
                     ),
                     Text(
-                      'Phone Number :  ${user.phone}',
+                      'User Number :  ${user.phone}',
                       style: const TextStyle(
                           fontSize: 14,
                           fontFamily: 'Kanit',
                           color: Colors.black),
-                      maxLines: 2,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      'Phone-order :  ${widget.order.phone.toString()}',
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Kanit',
+                          color: Colors.black),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
