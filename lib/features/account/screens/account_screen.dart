@@ -2,7 +2,6 @@ import 'package:diamart_commerce/constants/utils.dart';
 import 'package:diamart_commerce/features/account/widgets/favouritespage.dart';
 import 'package:diamart_commerce/features/account/widgets/profile_rows.dart';
 import 'package:diamart_commerce/features/orders/screens/orders_view_user.dart';
-import 'package:diamart_commerce/models/user.dart';
 import 'package:diamart_commerce/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart';
 import '../../../constants/global_variables.dart';
 import '../widgets/below_app_bar.dart';
 import '../../orders/widgets/orders.dart';
-import '../widgets/top_buttons.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -36,16 +34,7 @@ class AccountScreen extends StatelessWidget {
                       child: Image.asset(
                     'assets/images/twitter.png',
                     height: 30,
-                  )
-                      //  Text(
-                      //   'PROFILE',
-                      //   style: TextStyle(
-                      //       fontFamily: 'Kanit',
-                      //       color: Colors.grey.shade100,
-                      //       fontWeight: FontWeight.bold,
-                      //       fontSize: 25),
-                      // ),
-                      )),
+                  ))),
               Container(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: const Row(
@@ -114,10 +103,6 @@ class AccountScreen extends StatelessWidget {
               desc: 'Manage Your Address',
               onPressed: () {},
             ),
-            // const ProfileRows(
-            //   title: 'my cart',
-            //   desc: 'View Your Cart-Items',
-            // ),
             ProfileRows(
               title: 'Log Out',
               desc: 'log out from the Account',

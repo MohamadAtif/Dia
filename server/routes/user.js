@@ -143,6 +143,29 @@ userRouter.post("/api/order", auth, async (req, res) => {
   }
 });
 
+
+// // check order 
+// userRouter.post("/api/check-order", auth, async (req, res) => {
+//   try {
+//     const { cart } = req.body;
+//     let products = [];
+
+//     for (let i = 0; i < cart.length; i++) {
+//       let product = await Product.findById(cart[i].product._id);
+//       if (product.quantity >= cart[i].quantity) {
+//         product.quantity -= cart[i].quantity;
+//         products.push({ product, quantity: cart[i].quantity });
+//         await product.save();
+//       } else {
+//         return res
+//           .status(400)
+//           .json({ msg: `${product.name} is out of stock!` });
+//       }
+//     }
+//   } catch (e) {
+//     res.status(500).json({ error: e.message });
+//   }
+// });
 userRouter.get("/api/orders/me", auth, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user });

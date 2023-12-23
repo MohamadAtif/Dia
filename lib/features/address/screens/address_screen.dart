@@ -207,6 +207,8 @@ class _AddressScreenState extends State<AddressScreen> {
                     CustomTextField(
                       controller: phoneController,
                       hintText: 'Phone Number',
+                      maxLength: 11,
+                      keyboardType: TextInputType.phone,
                     ),
                     const SizedBox(height: 10),
                   ],

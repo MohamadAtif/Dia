@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diamart_commerce/common/widgets/loader_gridview.dart';
 import 'package:diamart_commerce/features/account/widgets/single_product.dart';
+import 'package:diamart_commerce/features/home/widgets/empty_categoryproductsScreen.dart';
 import 'package:diamart_commerce/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,18 +8,18 @@ import '../../../constants/global_variables.dart';
 import '../../../models/product.dart';
 import '../services/home_services.dart';
 
-class CategoryDealsScreen extends StatefulWidget {
+class CategoryProductsScreen extends StatefulWidget {
   final String category;
-  const CategoryDealsScreen({
+  const CategoryProductsScreen({
     Key? key,
     required this.category,
   }) : super(key: key);
 
   @override
-  State<CategoryDealsScreen> createState() => _CategoryDealsScreenState();
+  State<CategoryProductsScreen> createState() => _CategoryProductsScreenState();
 }
 
-class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
+class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   List<Product>? productList;
   final HomeServices homeServices = HomeServices();
 
@@ -61,29 +61,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
       body: productList == null
           ? const LoaderGridView()
           : productList!.isEmpty
-              ? Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 120,
-                      ),
-                      Icon(Icons.no_sim, color: Colors.grey.shade400, size: 60),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        "There are No Products Here",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Kanit',
-                            color: Colors.grey.shade400),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                    ],
-                  ),
-                )
+              ? const EmptyCategoryProductsScreen()
               : CustomScrollView(
                   slivers: [
                     const SliverToBoxAdapter(

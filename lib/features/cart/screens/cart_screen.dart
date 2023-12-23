@@ -1,8 +1,9 @@
-import 'package:diamart_commerce/common/widgets/bottom_bar.dart';
+import 'package:diamart_commerce/common/widgets/search_container.dart';
 import 'package:diamart_commerce/constants/utils.dart';
-import 'package:diamart_commerce/common/widgets/showdialog.dart';
+
 import 'package:diamart_commerce/features/address/screens/address_screen.dart';
-import 'package:diamart_commerce/features/home/screens/home_screen.dart';
+import 'package:diamart_commerce/features/cart/widgets/empty_cart_body.dart';
+
 import 'package:diamart_commerce/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,8 @@ class _CartScreenState extends State<CartScreen> {
         .map((e) => sum += e['quantity'] * e['product']['price'] as int)
         .toList();
     print(sum);
+    final cartQuantity =
+        user.cart.map((e) => e['product']['quantity'] as int).toList();
 
     return Scaffold(
       appBar: PreferredSize(
@@ -56,62 +59,9 @@ class _CartScreenState extends State<CartScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 42,
-                  margin: const EdgeInsets.only(left: 15),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(7),
-                    elevation: 1,
-                    child: TextFormField(
-                      onFieldSubmitted: navigateToSearchScreen,
-                      decoration: InputDecoration(
-                        prefixIcon: InkWell(
-                          onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 6,
-                            ),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.grey.shade800,
-                              size: 23,
-                            ),
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.only(top: 10),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.black38,
-                            width: 1,
-                          ),
-                        ),
-                        hintText: 'Search Diamart',
-                        hintStyle: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            children: [SearchContainer()],
           ),
         ),
       ),
@@ -145,42 +95,7 @@ class _CartScreenState extends State<CartScreen> {
           ),
           SliverFillRemaining(
             child: user.cart.isEmpty
-                ? Column(
-                    children: [
-                      const SizedBox(height: 5),
-                      const SizedBox(
-                        height: 80,
-                      ),
-                      Icon(Icons.remove_shopping_cart,
-                          color: Colors.grey.shade400, size: 60),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        'Your Cart is Empty Yet',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Kanit',
-                            color: Colors.grey.shade400),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const BottomBar()),
-                                (route) => false);
-                          },
-                          child: const Text('Go Shopping',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Kanit',
-                                  color: GlobalVariables.myTealColor)))
-                    ],
-                  )
+                ? const EmptyCartBody()
                 : ListView.builder(
                     itemCount: user.cart.length,
                     shrinkWrap: true,

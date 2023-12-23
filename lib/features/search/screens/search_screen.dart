@@ -1,3 +1,5 @@
+import 'package:diamart_commerce/common/widgets/search_container.dart';
+import 'package:diamart_commerce/features/search/widget/empty_searched_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/widgets/loader.dart';
@@ -53,92 +55,15 @@ class _SearchScreenState extends State<SearchScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 42,
-                  margin: const EdgeInsets.only(left: 15),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(7),
-                    elevation: 1,
-                    child: TextFormField(
-                      onFieldSubmitted: navigateToSearchScreen,
-                      decoration: InputDecoration(
-                        prefixIcon: InkWell(
-                          onTap: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                              left: 6,
-                            ),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 23,
-                            ),
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.only(top: 10),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.black38,
-                            width: 1,
-                          ),
-                        ),
-                        hintText: 'Search Diamart',
-                        hintStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          title: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [SearchContainer()]),
         ),
       ),
       body: products == null
           ? const Loader()
           : products!.isEmpty
-              ? Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 80,
-                      ),
-                      Icon(Icons.no_cell,
-                          color: Colors.grey.shade400, size: 60),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        " Sorry, we could'nt find any results for #${widget.searchQuery.toString()} \n           Try Adjusting Your Search",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Kanit',
-                            color: Colors.grey.shade400),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                    ],
-                  ),
-                )
+              ? EmptySearchedPage(searchQuery: widget.searchQuery)
               : Column(
                   children: [
                     const AddressBox(),
@@ -156,11 +81,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                             product: products![index],
                                           )));
                             },
-                            child: products![index] == ''
-                                ? const Text('dfjjjjjjjjjj')
-                                : SearchedProduct(
-                                    product: products![index],
-                                  ),
+                            child: SearchedProduct(
+                              product: products![index],
+                            ),
                           );
                         },
                       ),

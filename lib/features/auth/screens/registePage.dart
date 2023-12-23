@@ -44,6 +44,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: GlobalVariables.myTealColor,
       body: ListView(
         children: [
           Form(
@@ -62,7 +63,7 @@ class _RegisterViewState extends State<RegisterView> {
                             color: GlobalVariables.myTealColor),
                         child: Container(
                           margin: const EdgeInsets.symmetric(
-                              horizontal: 30.0, vertical: 39),
+                              horizontal: 20.0, vertical: 30),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -90,7 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                       Positioned(
-                        top: 130,
+                        top: 115,
                         right: 0,
                         left: 0,
                         child: Container(
@@ -118,6 +119,8 @@ class _RegisterViewState extends State<RegisterView> {
                               CustomTextField(
                                 controller: _phoneController,
                                 hintText: 'Phone Number',
+                                maxLength: 11,
+                                keyboardType: TextInputType.phone,
                               ),
                               const SizedBox(height: 7),
                               CustomTextField(
@@ -158,12 +161,6 @@ class _RegisterViewState extends State<RegisterView> {
                                   if (_signUpFormKey.currentState!.validate()) {
                                     signUpUser();
                                   }
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const BottomBar()),
-                                  );
                                 },
                               ),
                               const SizedBox(

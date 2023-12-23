@@ -14,7 +14,7 @@ class LoaderGridView extends StatelessWidget {
         child: GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 6,
+          itemCount: 8,
           itemBuilder: (context, index) => Shimmer.fromColors(
               baseColor: Colors.grey.shade100,
               highlightColor: Colors.white,

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diamart_commerce/features/account/widgets/single_product.dart';
 import 'package:diamart_commerce/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -58,22 +57,6 @@ class _AllProductsView extends State<AllProductsView> {
           ? const Loader()
           : CustomScrollView(
               slivers: [
-                // SliverToBoxAdapter(
-                //     child: Column(children: [
-                //   Container(
-                //     padding: const EdgeInsets.symmetric(
-                //         horizontal: 15, vertical: 10),
-                //     alignment: Alignment.topLeft,
-                //     child: const Text(
-                //       'See All Products',
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //         fontFamily: 'Kanit',
-                //         fontSize: 20,
-                //       ),
-                //     ),
-                //   ),
-                // ])),
                 SliverFillRemaining(
                   child: GridView.builder(
                     itemCount: productList!.length,

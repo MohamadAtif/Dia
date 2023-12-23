@@ -1,4 +1,4 @@
-import 'package:diamart_commerce/features/home/screens/category_deals_screen.dart';
+import 'package:diamart_commerce/features/home/screens/category_products_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/global_variables.dart';
@@ -10,7 +10,7 @@ class TopCategories extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => CategoryDealsScreen(
+            builder: (context) => CategoryProductsScreen(
                   category: category,
                 )));
   }

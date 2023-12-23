@@ -1,13 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:diamart_commerce/common/widgets/loader.dart';
 import 'package:diamart_commerce/common/widgets/loader_listView.dart';
-import 'package:diamart_commerce/common/widgets/shimmer_Loader.dart';
 import 'package:diamart_commerce/features/account/widgets/single_product.dart';
 import 'package:diamart_commerce/features/home/screens/allproducts_view.dart';
 import 'package:diamart_commerce/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
-
 import '../../../models/product.dart';
 import '../services/home_services.dart';
 
@@ -102,23 +97,6 @@ class _AllProductsListViewState extends State<AllProductsListView> {
                             ),
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //     children: [
-                        //       Expanded(
-                        //         child: Text(
-                        //           productData.name,
-                        //           style: const TextStyle(
-                        //               fontFamily: 'Kanit', fontSize: 16),
-                        //           overflow: TextOverflow.ellipsis,
-                        //           maxLines: 1,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     );
                   },
