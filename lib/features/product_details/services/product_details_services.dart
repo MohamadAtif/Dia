@@ -100,7 +100,8 @@ class ProductDetailsServices {
         response: res,
         context: context,
         onSuccess: () {
-          alertDialogToast('Thancks to Your Rating');
+          alertDialogToast(
+              'Thancks to Your Rating', GlobalVariables.secondaryColor);
         },
       );
     } catch (e) {

@@ -1,11 +1,8 @@
 import 'package:diamart_commerce/common/widgets/bottom_bar.dart';
 import 'package:diamart_commerce/common/widgets/loader_gridview.dart';
 import 'package:diamart_commerce/features/account/widgets/image_product.dart';
-import 'package:diamart_commerce/features/account/widgets/single_product.dart';
 import 'package:diamart_commerce/features/orders/screens/order_details.dart';
 import 'package:flutter/material.dart';
-
-import '../../../common/widgets/loader.dart';
 import '../../../constants/global_variables.dart';
 import '../../../models/order.dart';
 import '../../account/services/account_services.dart';

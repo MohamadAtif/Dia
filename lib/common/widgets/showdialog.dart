@@ -1,4 +1,3 @@
-import 'package:diamart_commerce/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 // // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toast/toast.dart';
@@ -8,10 +7,11 @@ import 'package:toast/toast.dart';
 // //       .showSnackBar(const SnackBar(content: Text('Success')));
 // // }
 
-alertDialogToast(String toastMsg) {
+alertDialogToast(String toastMsg, Color color) {
   Toast.show(toastMsg,
+      textStyle: const TextStyle(fontFamily: 'kanit', color: Colors.white),
       duration: Toast.lengthShort,
-      backgroundColor: GlobalVariables.secondaryColor,
+      backgroundColor: color,
       gravity: Toast.center);
 }
 

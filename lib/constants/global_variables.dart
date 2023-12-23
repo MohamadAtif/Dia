@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // https://dark-ruby-coveralls.cyclic.app
 //localhost must be 10.0.2.2 to run in emulator
 //http://192.168.1.9:3000
-String uri = 'https://dark-ruby-coveralls.cyclic.app';
+String uri = 'http://192.168.1.7:3000';
 
 class GlobalVariables {
   // COLORS

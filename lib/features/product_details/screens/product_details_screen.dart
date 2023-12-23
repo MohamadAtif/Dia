@@ -177,14 +177,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     padding: const EdgeInsets.all(10),
                     child: ButtonAddToCart(
                       product: widget.product,
-                    )
-                    //  CustomButton(
-                    //   text: 'Add to Cart',
-                    //   onTap: addToCart,
-                    //   color: GlobalVariables.myTealColor,
-                    //   // color: const Color.fromRGBO(254, 216, 19, 1),
-                    // ),
-                    ),
+                    )),
                 const SizedBox(height: 10),
 
                 const Padding(
@@ -240,7 +233,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       avgRating = totalRating / widget.product.rating!.length;
     }
   }
-
   // void buyNow() {
   //   productDetailsServices.buyNow(
   //     context: context,

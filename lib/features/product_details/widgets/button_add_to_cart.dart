@@ -33,7 +33,8 @@ class _ButtonAddToCartState extends State<ButtonAddToCart> {
       product: widget.product,
     );
 
-    alertDialogToast('Added To Cart Succefully');
+    alertDialogToast(
+        'Added To Cart Succefully', GlobalVariables.secondaryColor);
   }
 
   @override
@@ -42,7 +43,7 @@ class _ButtonAddToCartState extends State<ButtonAddToCart> {
     return ElevatedButton(
       onPressed: () async {
         if (productQuantity == 0) {
-          alertDialogToast('This Product is Out of Stock');
+          alertDialogToast('This Product is Out of Stock', Colors.red);
         } else {
           setState(() {
             isLoading = true;

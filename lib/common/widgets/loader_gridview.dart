@@ -1,4 +1,4 @@
-import 'package:diamart_commerce/common/widgets/shimmer_Loader.dart';
+import 'package:diamart_commerce/common/widgets/item_shimmer_Loader.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

@@ -46,9 +46,6 @@ class _CartScreenState extends State<CartScreen> {
     user.cart
         .map((e) => sum += e['quantity'] * e['product']['price'] as int)
         .toList();
-    print(sum);
-    final cartQuantity =
-        user.cart.map((e) => e['product']['quantity'] as int).toList();
 
     return Scaffold(
       appBar: PreferredSize(

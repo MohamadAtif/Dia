@@ -1,6 +1,8 @@
+import 'package:diamart_commerce/common/widgets/showdialog.dart';
 import 'package:diamart_commerce/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 import '../../../models/product.dart';
 import '../../../providers/user_provider.dart';
@@ -39,9 +41,14 @@ class _CartProductState extends State<CartProduct> {
 
   @override
   Widget build(BuildContext context) {
+    //  final productQuantity = widget.product.quantity;
+
+    ToastContext().init(context);
+    final user = context.watch<UserProvider>().user;
     final productCart = context.watch<UserProvider>().user.cart[widget.index];
     final product = Product.fromMap(productCart['product']);
     final quantity = productCart['quantity'];
+    final productStock = product.quantity;
 
     return Column(
       children: [
@@ -164,7 +171,12 @@ class _CartProductState extends State<CartProduct> {
                       ),
                     ),
                     InkWell(
-                      onTap: () => increaseQuantity(product),
+                      onTap: () {
+                        quantity < productStock
+                            ? increaseQuantity(product)
+                            : alertDialogToast(
+                                'Out of Stock', GlobalVariables.myTealColor);
+                      },
                       child: Container(
                         color: GlobalVariables.myTealColor,
                         width: 35,
