@@ -4,7 +4,7 @@ import 'package:diamart_commerce/features/orders/screens/order_details.dart';
 import 'package:flutter/material.dart';
 import '../../../common/widgets/loader.dart';
 import '../../../models/order.dart';
-import '../../account/widgets/single_product.dart';
+import '../../../common/widgets/single_product.dart';
 import '../services/admin_services.dart';
 
 class OrdersScreen extends StatefulWidget {

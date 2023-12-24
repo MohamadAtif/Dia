@@ -1,6 +1,6 @@
 import 'package:diamart_commerce/common/widgets/bottom_bar.dart';
 import 'package:diamart_commerce/common/widgets/loader_orders.dart';
-import 'package:diamart_commerce/features/account/widgets/single_product.dart';
+import 'package:diamart_commerce/common/widgets/single_product.dart';
 import 'package:diamart_commerce/features/orders/screens/order_details.dart';
 import 'package:diamart_commerce/features/orders/widgets/empty_order_page.dart';
 import 'package:diamart_commerce/features/orders/widgets/orders_subdetails_card.dart';

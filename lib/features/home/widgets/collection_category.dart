@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:diamart_commerce/features/account/widgets/single_product.dart';
+import 'package:diamart_commerce/common/widgets/single_product.dart';
 import 'package:diamart_commerce/features/home/services/home_services.dart';
 import 'package:diamart_commerce/models/product.dart';
 import 'package:flutter/material.dart';

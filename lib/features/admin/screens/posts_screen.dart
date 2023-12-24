@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/widgets/loader.dart';
 import '../../../models/product.dart';
-import '../../account/widgets/single_product.dart';
+import '../../../common/widgets/single_product.dart';
 import '../services/admin_services.dart';
 
 class PostsScreen extends StatefulWidget {

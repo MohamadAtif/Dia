@@ -1,5 +1,5 @@
 import 'package:diamart_commerce/common/widgets/loader_gridview.dart';
-import 'package:diamart_commerce/features/account/widgets/single_product.dart';
+import 'package:diamart_commerce/common/widgets/single_product.dart';
 import 'package:diamart_commerce/features/home/widgets/empty_categoryproductsScreen.dart';
 import 'package:diamart_commerce/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';

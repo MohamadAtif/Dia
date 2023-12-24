@@ -4,10 +4,15 @@ const mongoose=require('mongoose');
 
 module.exports={
    
+     //recentlyAdded 25 Product
     getAllProducts :  async (req, res) => {
         try {
-          const products = await Product.find({}).sort({dateCreated: -1});
+           var limit= parseInt(25)
+          // var limit = parseInt(req.body.limit);
+          // var skip = (parseInt(req.body.page)-1) * parseInt(limit);
+          const products = await Product.find({}).sort({dateCreated: -1}).limit(limit);
           res.json(products);
+          console.log(products);
         } catch (e) {
           res.status(500).json({ error: e.message });
         }

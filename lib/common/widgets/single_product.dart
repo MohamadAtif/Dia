@@ -27,7 +27,7 @@ class SingleProduct extends StatelessWidget {
           // s
         ),
         Text(
-          name.toString(),
+          ' ${name.toString()}',
           style: const TextStyle(fontFamily: 'Kanit', fontSize: 16),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
@@ -37,7 +37,7 @@ class SingleProduct extends StatelessWidget {
           style: const TextStyle(
               color: Colors.red, fontFamily: 'Kanit', fontSize: 14),
           overflow: TextOverflow.ellipsis,
-          maxLines: 2,
+          maxLines: 1,
         ),
       ],
     );
