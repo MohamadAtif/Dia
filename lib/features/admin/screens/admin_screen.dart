@@ -108,7 +108,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               child: const Icon(
-                Icons.analytics_outlined,
+                Icons.manage_accounts_sharp,
               ),
             ),
             label: '',
@@ -128,7 +128,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               child: const Icon(
-                Icons.all_inbox_outlined,
+                Icons.inbox,
               ),
             ),
             label: '',

@@ -48,10 +48,6 @@ class GlobalVariables {
       'title': 'Appliances',
       'image': 'assets/images/appliancesf.jpg',
     },
-    // {
-    //   'title': 'Books',
-    //   'image': 'assets/images/books.jpeg',
-    // },
     {
       'title': 'Fashion',
       'image': 'assets/images/fashionf.jpg',

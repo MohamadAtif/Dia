@@ -50,10 +50,10 @@ class AuthService {
             context,
             'Account Created Successfully!',
           );
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const BottomBar()),
-          );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const BottomBar()),
+          // );
         },
       );
     } catch (e) {

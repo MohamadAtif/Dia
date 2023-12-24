@@ -30,7 +30,7 @@ class SingleProduct extends StatelessWidget {
           name.toString(),
           style: const TextStyle(fontFamily: 'Kanit', fontSize: 16),
           overflow: TextOverflow.ellipsis,
-          maxLines: 2,
+          maxLines: 1,
         ),
         Text(
           "${price.toString()} EGP",

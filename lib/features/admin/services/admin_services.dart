@@ -211,8 +211,7 @@ class AdminServices {
           totalEarning = response['totalEarnings'];
           sales = [
             Sales('Mobiles', response['mobileEarnings']),
-            Sales('Essentials', response['essentialEarnings']),
-            Sales('Books', response['booksEarnings']),
+            Sales('Cosmetics', response['cosmeticsEarnings']),
             Sales('Appliances', response['applianceEarnings']),
             Sales('Fashion', response['fashionEarnings']),
           ];
