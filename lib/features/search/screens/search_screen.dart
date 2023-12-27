@@ -1,11 +1,13 @@
+import 'package:diamart_commerce/common/widgets/bottom_bar.dart';
+import 'package:diamart_commerce/common/widgets/loader_listViewSearchpage.dart';
 import 'package:diamart_commerce/common/widgets/search_container.dart';
+import 'package:diamart_commerce/features/search/widget/buttonGoShoppingSearchPage.dart';
 import 'package:diamart_commerce/features/search/widget/empty_searched_page.dart';
+import 'package:diamart_commerce/features/search/widget/sortbuttonbody.dart';
+import 'package:diamart_commerce/features/search/widget/textsort_modal.dart';
 import 'package:flutter/material.dart';
-
-import '../../../common/widgets/loader.dart';
 import '../../../constants/global_variables.dart';
 import '../../../models/product.dart';
-import '../../home/widgets/address_box.dart';
 import '../../product_details/screens/product_details_screen.dart';
 import '../services/search_services.dart';
 import '../widget/searched_product.dart';
@@ -31,19 +33,6 @@ class _SearchScreenState extends State<SearchScreen> {
     fetchSearchedProduct();
   }
 
-  fetchSearchedProduct() async {
-    products = await searchServices.fetchSearchedProduct(
-        context: context, searchQuery: widget.searchQuery);
-    setState(() {});
-  }
-
-  void navigateToSearchScreen(String query) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => SearchScreen(searchQuery: query)));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,18 +44,33 @@ class _SearchScreenState extends State<SearchScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [SearchContainer()]),
+          title:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const SearchContainer(),
+            const SizedBox(width: 7),
+            InkWell(
+              onTap: () {
+                showModalsheet(context);
+              },
+              child: const SortButton(),
+            )
+          ]),
         ),
       ),
+      bottomSheet: ButtonGoShoppingSearchPage(
+        onTap: () {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const BottomBar()),
+              (route) => false);
+        },
+      ),
       body: products == null
-          ? const Loader()
+          ? const LoaderListViewSearchPage()
           : products!.isEmpty
               ? EmptySearchedPage(searchQuery: widget.searchQuery)
               : Column(
                   children: [
-                    const AddressBox(),
                     const SizedBox(height: 10),
                     Expanded(
                       child: ListView.builder(
@@ -91,5 +95,124 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
     );
+  }
+
+////////////////////////////////////////Functions Search And filtring Data
+  ///
+
+  fetchSearchedProduct() async {
+    products = await searchServices.fetchSearchedProduct(
+        context: context, searchQuery: widget.searchQuery);
+    setState(() {});
+  }
+
+  fetchSearchedProductHighestRated() async {
+    products = await searchServices.fetchSearchedProductHighestRated(
+        context: context, searchQuery: widget.searchQuery);
+    setState(() {});
+  }
+
+  sortProductslowestPriceToHigh() {
+    setState(() {
+      products!.sort(
+        (a, b) => a.price.compareTo(b.price),
+      );
+    });
+  }
+
+  sortProductsHighestPriceToLow() {
+    setState(() {
+      products!.sort(
+        (a, b) => b.price.compareTo(a.price),
+      );
+    });
+  }
+
+  void showModalsheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 320,
+            color: Colors.grey.shade100,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      const SizedBox(width: 120),
+                      const Text(
+                        'SORT SEARCH',
+                        style: TextStyle(
+                            fontFamily: 'Kanit',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                      const SizedBox(
+                        width: 80,
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.close))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  TextSort(
+                    onTap: () {
+                      setState(() {
+                        fetchSearchedProductHighestRated();
+                      });
+                      Navigator.pop(context);
+                    },
+                    text: 'Highest-Rated',
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextSort(
+                    onTap: () {
+                      sortProductsHighestPriceToLow();
+                      Navigator.pop(context);
+                    },
+                    text: 'Highest Price To lowest',
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextSort(
+                    onTap: () {
+                      sortProductslowestPriceToHigh();
+                      Navigator.pop(context);
+                    },
+                    text: 'Lowest Price to Highest',
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              GlobalVariables.secondaryColor)),
+                      child: const Text(
+                        'CANCLE SORTING',
+                        style:
+                            TextStyle(fontFamily: 'Kanit', color: Colors.white),
+                      ),
+                      onPressed: () {
+                        fetchSearchedProduct();
+                        Navigator.pop(context);
+                      }),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

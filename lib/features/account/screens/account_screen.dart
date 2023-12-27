@@ -23,7 +23,7 @@ class AccountScreen extends StatelessWidget {
           // leading: Icons.arrow_back_ios_new_outlined,
           flexibleSpace: Container(
             decoration:
-                const BoxDecoration(gradient: GlobalVariables.appBarPrivate),
+                const BoxDecoration(gradient: GlobalVariables.appBarGradient),
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,

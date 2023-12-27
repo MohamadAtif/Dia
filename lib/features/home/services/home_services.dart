@@ -16,6 +16,7 @@ class HomeServices {
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
+
     try {
       http.Response res = await http
           .get(Uri.parse('$uri/api/products?category=$category'), headers: {
@@ -46,7 +47,6 @@ class HomeServices {
 
   Future<List<Product>> fetchAllProductsRecentlyAdded({
     required BuildContext context,
-    // required String category,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];

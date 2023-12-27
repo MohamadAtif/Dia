@@ -38,7 +38,7 @@ class EmptyCartBody extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 18,
                       fontFamily: 'Kanit',
-                      color: GlobalVariables.myTealColor)))
+                      color: GlobalVariables.secondaryColor)))
         ],
       ),
     );

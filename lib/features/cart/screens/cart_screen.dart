@@ -76,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
                   onTap: () => user.cart.isEmpty
                       ? showSnackBar(context, 'Add Items First!')
                       : navigateToAddress(sum),
-                  color: GlobalVariables.myTealColor,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: 15),

@@ -34,6 +34,11 @@ class GlobalVariables {
     'https://images.puma.com/image/upload/q_auto,f_auto,w_1440/regional/%7Eregional%7EDFA%7Eothers%7EKOPs%7EAW23%7EBASKETBALL%7EMB03+TOXIC%7E23AW_Ecom_BB_MB03_Toxic_Full-Bleed-Hero_Large_Desk_1440x500px_2.jpg/fmt/jpg/fmt/png',
     'https://dfcdn.defacto.com.tr/df/1600/Mobile/en_buy-2-get-3rd-free_3960x1440-desktop-2_556e034b-718e-4ce5-bd3c-d7663d56782d_42b62bba-e9c4-4be4-94f4-da7f52993854_DI_297.jpg',
   ];
+  static const List<String> searchCategory = [
+    'HighestRated',
+    'HighestPrice',
+    'LowestPrice'
+  ];
 
   static const List<Map<String, String>> categoryImages = [
     {

@@ -97,21 +97,6 @@ class _TopRatedState extends State<TopRated> {
                     //         .toList(),
                     //   ),
                     // ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                      ).copyWith(left: 15),
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'See all deals',
-                        style: TextStyle(
-                          fontFamily: 'Kanit',
-                          fontSize: 14,
-                          color: Colors.cyan[800],
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               );

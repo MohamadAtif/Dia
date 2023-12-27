@@ -52,85 +52,6 @@ class _AddressScreenState extends State<AddressScreen> {
     cityController.dispose();
   }
 
-  // void onApplePayResult(res) {
-  //   if (Provider.of<UserProvider>(context, listen: false)
-  //       .user
-  //       .address
-  //       .isEmpty) {
-  //     addressServices.saveUserAddress(
-  //         context: context, address: addressToBeUsed);
-  //   }
-  //   addressServices.placeOrder(
-  //     context: context,
-  //     address: addressToBeUsed,
-  //     totalSum: double.parse(widget.totalAmount),
-  //   );
-  // }
-
-  // void onGooglePayResult(res) {
-  //   if (Provider.of<UserProvider>(context, listen: false)
-  //       .user
-  //       .address
-  //       .isEmpty) {
-  //     addressServices.saveUserAddress(
-  //         context: context, address: addressToBeUsed);
-  //   }
-  //   addressServices.placeOrder(
-  //     context: context,
-  //     address: addressToBeUsed,
-  //     totalSum: double.parse(widget.totalAmount),
-  //   );
-  // }
-
-  void payPressed(String addressFromProvider) async {
-    addressToBeUsed = "";
-
-    bool isForm = flatBuildingController.text.isNotEmpty ||
-        areaController.text.isNotEmpty ||
-        phoneController.text.isNotEmpty ||
-        cityController.text.isNotEmpty;
-    if (Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address
-        .isEmpty) {
-      addressServices.saveUserAddress(
-          context: context, address: addressToBeUsed);
-    }
-    if (isForm) {
-      if (_addressFormKey.currentState!.validate()) {
-        addressToBeUsed =
-            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text}';
-        if (Provider.of<UserProvider>(context, listen: false)
-            .user
-            .address
-            .isEmpty) {
-          addressServices.saveUserAddress(
-              context: context, address: addressToBeUsed);
-        }
-
-        addressServices.placeOrder(
-          context: context,
-          address: addressToBeUsed,
-          totalSum: double.parse(widget.totalAmount),
-          phone: phoneController.text,
-        );
-      } else {
-        showSnackBar(context, 'Please enter all the values!');
-      }
-    } else if (addressFromProvider.isNotEmpty) {
-      addressToBeUsed = addressFromProvider;
-
-      addressServices.placeOrder(
-        context: context,
-        address: addressToBeUsed,
-        totalSum: double.parse(widget.totalAmount),
-        phone: 'No number was Given',
-      );
-    } else {
-      showSnackBar(context, 'Check Fields!');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     var address = context.watch<UserProvider>().user.address;
@@ -191,17 +112,17 @@ class _AddressScreenState extends State<AddressScreen> {
                   children: [
                     CustomTextField(
                       controller: flatBuildingController,
-                      hintText: 'Flat, House no, Building',
+                      hintText: 'Flat, House ',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
                       controller: areaController,
-                      hintText: 'Area, Street',
+                      hintText: 'Street',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
                       controller: cityController,
-                      hintText: 'Town/City',
+                      hintText: 'City',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
@@ -215,12 +136,136 @@ class _AddressScreenState extends State<AddressScreen> {
                 ),
               ),
               CustomButton(
-                color: GlobalVariables.myTealColor,
+                color: GlobalVariables.secondaryColor,
                 onTap: () {
                   payPressed(address);
                 },
                 text: 'Make Order',
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void payPressed(String addressFromProvider) async {
+    addressToBeUsed = "";
+
+    bool isForm = flatBuildingController.text.isNotEmpty ||
+        areaController.text.isNotEmpty ||
+        phoneController.text.isNotEmpty ||
+        cityController.text.isNotEmpty;
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+    if (isForm) {
+      if (_addressFormKey.currentState!.validate()) {
+        addressToBeUsed =
+            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text}';
+        if (Provider.of<UserProvider>(context, listen: false)
+            .user
+            .address
+            .isEmpty) {
+          addressServices.saveUserAddress(
+              context: context, address: addressToBeUsed);
+        }
+
+        addressServices.placeOrder(
+          context: context,
+          address: addressToBeUsed,
+          totalSum: double.parse(widget.totalAmount),
+          phone: phoneController.text,
+        );
+      } else {
+        showSnackBar(context, 'Please enter all the values!');
+      }
+    } else if (addressFromProvider.isNotEmpty) {
+      addressToBeUsed = addressFromProvider;
+
+      addressServices.placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: double.parse(widget.totalAmount),
+        phone: 'No number was Given',
+      );
+    } else {
+      showSnackBar(context, 'Check Fields!');
+    }
+  }
+}
+
+// class ShowPaymentBottomSheet extends StatelessWidget {
+//   const ShowPaymentBottomSheet({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         const SizedBox(
+//           height: 10,
+//         ),
+//         const Row(
+//           children: [
+//             SizedBox(
+//               width: 80,
+//             ),
+//             PaymentMethodItem(
+//                 isActive: true, image: 'assets/images/SVGRepo_iconCarrier.png'),
+//             SizedBox(
+//               width: 30,
+//             ),
+//             PaymentMethodItem(
+//                 isActive: false, image: 'assets/images/Group.png'),
+//           ],
+//         ),
+//         const SizedBox(
+//           height: 10,
+//         ),
+//         CustomButton(color: Colors.yellow, text: 'Continue', onTap: () {}),
+//         const SizedBox(
+//           height: 10,
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+
+              // void onApplePayResult(res) {
+              //   if (Provider.of<UserProvider>(context, listen: false)
+              //       .user
+              //       .address
+              //       .isEmpty) {
+              //     addressServices.saveUserAddress(
+              //         context: context, address: addressToBeUsed);
+              //   }
+              //   addressServices.placeOrder(
+              //     context: context,
+              //     address: addressToBeUsed,
+              //     totalSum: double.parse(widget.totalAmount),
+              //   );
+              // }
+
+              // void onGooglePayResult(res) {
+              //   if (Provider.of<UserProvider>(context, listen: false)
+              //       .user
+              //       .address
+              //       .isEmpty) {
+              //     addressServices.saveUserAddress(
+              //         context: context, address: addressToBeUsed);
+              //   }
+              //   addressServices.placeOrder(
+              //     context: context,
+              //     address: addressToBeUsed,
+              //     totalSum: double.parse(widget.totalAmount),
+              //   );
+              // }
 
               // ApplePayButton(
               //   width: double.infinity,
@@ -263,47 +308,3 @@ class _AddressScreenState extends State<AddressScreen> {
               //     child: CircularProgressIndicator(),
               //   ),
               // ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// class ShowPaymentBottomSheet extends StatelessWidget {
-//   const ShowPaymentBottomSheet({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         const SizedBox(
-//           height: 10,
-//         ),
-//         const Row(
-//           children: [
-//             SizedBox(
-//               width: 80,
-//             ),
-//             PaymentMethodItem(
-//                 isActive: true, image: 'assets/images/SVGRepo_iconCarrier.png'),
-//             SizedBox(
-//               width: 30,
-//             ),
-//             PaymentMethodItem(
-//                 isActive: false, image: 'assets/images/Group.png'),
-//           ],
-//         ),
-//         const SizedBox(
-//           height: 10,
-//         ),
-//         CustomButton(color: Colors.yellow, text: 'Continue', onTap: () {}),
-//         const SizedBox(
-//           height: 10,
-//         ),
-//       ],
-//     );
-//   }
-// }

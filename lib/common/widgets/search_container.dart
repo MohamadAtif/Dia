@@ -17,23 +17,24 @@ class SearchContainer extends StatelessWidget {
           elevation: 1,
           child: TextFormField(
             onFieldSubmitted: (value) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SearchScreen(searchQuery: value)));
+              if (value.isEmpty) {
+              } else {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SearchScreen(searchQuery: value)));
+              }
             },
             decoration: InputDecoration(
-              prefixIcon: InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 6,
-                  ),
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.grey.shade700,
-                    size: 23,
-                  ),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(
+                  left: 6,
+                ),
+                child: Icon(
+                  Icons.search,
+                  color: Colors.grey.shade900,
+                  size: 23,
                 ),
               ),
               filled: true,
@@ -50,7 +51,7 @@ class SearchContainer extends StatelessWidget {
                   Radius.circular(7),
                 ),
                 borderSide: BorderSide(
-                  color: Colors.black38,
+                  color: Colors.black,
                   width: 1,
                 ),
               ),

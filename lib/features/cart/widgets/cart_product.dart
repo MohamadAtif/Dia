@@ -114,7 +114,7 @@ class _CartProductState extends State<CartProduct> {
                     child: Text(
                       'In Stock : ${product.quantity.toInt()}',
                       style: const TextStyle(
-                        color: Colors.teal,
+                        color: GlobalVariables.myTealColor,
                         fontFamily: 'Kanit',
                       ),
                       maxLines: 2,
@@ -133,18 +133,17 @@ class _CartProductState extends State<CartProduct> {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: GlobalVariables.myTealColor,
+                    color: Colors.black,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(5),
-                  color: GlobalVariables.myTealColor,
                 ),
                 child: Row(
                   children: [
                     InkWell(
                       onTap: () => decreaseQuantity(product),
                       child: Container(
-                        color: GlobalVariables.myTealColor,
+                        color: Colors.black,
                         width: 35,
                         height: 32,
                         alignment: Alignment.center,
@@ -175,10 +174,10 @@ class _CartProductState extends State<CartProduct> {
                         quantity < productStock
                             ? increaseQuantity(product)
                             : alertDialogToast(
-                                'Out of Stock', GlobalVariables.myTealColor);
+                                'Out of Stock', GlobalVariables.secondaryColor);
                       },
                       child: Container(
-                        color: GlobalVariables.myTealColor,
+                        color: Colors.black,
                         width: 35,
                         height: 32,
                         alignment: Alignment.center,

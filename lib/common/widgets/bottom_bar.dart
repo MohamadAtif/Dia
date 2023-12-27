@@ -50,11 +50,11 @@ class _BottomBarState extends State<BottomBar> {
             child: GNav(
                 selectedIndex: _page,
                 onTabChange: updatePage,
-                color: Colors.teal,
+                color: Colors.black,
                 // gap: 1,
                 // backgroundColor: Colors.white,
-                activeColor: Colors.grey.shade300,
-                tabBackgroundColor: GlobalVariables.myTealColor,
+                activeColor: Colors.black,
+                tabBackgroundColor: Colors.grey.shade300,
                 padding: const EdgeInsets.all(16),
                 tabs: [
                   const GButton(
@@ -74,22 +74,20 @@ class _BottomBarState extends State<BottomBar> {
                       badgeContent: Text(
                         userCartLen.toString(),
                         style: TextStyle(
-                          color: _page == 3
-                              ? Colors.grey.shade100
-                              : GlobalVariables.myTealColor,
+                          color: _page == 3 ? Colors.black : Colors.black,
                         ),
                       ),
                       badgeStyle: const badges.BadgeStyle(
                           padding: EdgeInsets.all(1),
                           badgeColor: Colors.transparent),
                       child: _page == 3
-                          ? Icon(
+                          ? const Icon(
                               Icons.shopping_cart_sharp,
-                              color: Colors.grey.shade100,
+                              color: Colors.black,
                             )
                           : const Icon(
                               Icons.shopping_cart_rounded,
-                              color: GlobalVariables.myTealColor,
+                              color: Colors.black,
                             ),
                     ),
                     icon: Icons.shopping_cart_rounded,

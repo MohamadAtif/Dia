@@ -44,9 +44,9 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient,
-            ),
+            decoration: BoxDecoration(color: Colors.grey[100]
+                // gradient: GlobalVariables.appBarGradient,
+                ),
           ),
           title: Text(
             'See All for ${widget.category}'.toUpperCase(),

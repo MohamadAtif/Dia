@@ -12,7 +12,7 @@ module.exports={
           // var skip = (parseInt(req.body.page)-1) * parseInt(limit);
           const products = await Product.find({}).sort({dateCreated: -1}).limit(limit);
           res.json(products);
-          console.log(products);
+       
         } catch (e) {
           res.status(500).json({ error: e.message });
         }
@@ -20,25 +20,18 @@ module.exports={
 
       getAllProductsByCategory : async (req, res) => {
         try {
-          const products = await Product.find({ category: req.query.category });
+          var page= parseInt(req.body.page) ;
+           var limit = parseInt(req.body.limit);
+          var skip = (parseInt(page)-1) * parseInt(limit);
+          const products = await Product.find({ category: req.query.category }).skip(skip).limit(limit);
           res.json(products);
+          // console.log(products);
         } catch (e) {
           res.status(500).json({ error: e.message });
         }
       },
       // create a get request to search products and get them
-       //api/products/search/i
-      getProductsBySearch :  async (req, res) => {
-        try {
-          const products = await Product.find({
-            name: { $regex: req.params.name, $options: "i" },
-          });
-      
-          res.json(products);
-        } catch (e) {
-          res.status(500).json({ error: e.message });
-        }
-      },
+    
     
     rateProduct : async (req, res) => {
         try {
@@ -71,7 +64,8 @@ module.exports={
 
       getTopRated:async (req, res) => {
         try {
-          let products = await Product.find({});
+          var limit= parseInt(5)
+          let products = await Product.find({}).limit(limit);
       
           products = products.sort((a, b) => {
             let aSum = 0;
@@ -91,14 +85,12 @@ module.exports={
           });
       
           res.json(products[0]);
+          
+
         } catch (e) {
           res.status(500).json({ error: e.message });
         }
       }
-
-
-
-
     }
     
 //upload file 
